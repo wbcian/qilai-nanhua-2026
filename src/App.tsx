@@ -1,17 +1,14 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import Itinerary from './components/Itinerary'
-import Checklist from './components/Checklist'
+import TodoPanel from './components/TodoPanel'
 import Transport from './components/Transport'
 import Meals from './components/Meals'
-import { GEAR } from './data/packingList'
-import { SHOPPING } from './data/shoppingList'
 
-type Tab = 'itinerary' | 'gear' | 'shopping' | 'transport' | 'meals'
+type Tab = 'itinerary' | 'todo' | 'transport' | 'meals'
 
 const TAB_LIST: { key: Tab; label: string }[] = [
   { key: 'itinerary', label: '行程' },
-  { key: 'gear', label: '裝備' },
-  { key: 'shopping', label: '採買' },
+  { key: 'todo', label: '待辦' },
   { key: 'transport', label: '交通' },
   { key: 'meals', label: '餐食' },
 ]
@@ -180,15 +177,8 @@ export default function App() {
         <section className={`tab-panel${activeTab === 'itinerary' ? ' active' : ''}`}>
           <Itinerary />
         </section>
-        <section className={`tab-panel${activeTab === 'gear' ? ' active' : ''}`}>
-          <Checklist data={GEAR} prefix="gear" />
-        </section>
-        <section className={`tab-panel${activeTab === 'shopping' ? ' active' : ''}`}>
-          <Checklist
-            data={SHOPPING}
-            prefix="shopping"
-            noteBox="💡 山莊有提供熱水，可帶沖泡類食品。Day2 下山 09:30~14:00 約 4.5 小時，行動糧要備足。"
-          />
+        <section className={`tab-panel${activeTab === 'todo' ? ' active' : ''}`}>
+          <TodoPanel />
         </section>
         <section className={`tab-panel${activeTab === 'transport' ? ' active' : ''}`}>
           <Transport />

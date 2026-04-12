@@ -1,0 +1,1 @@
+{"root":["./src/app.tsx","./src/main.tsx","./src/vite-env.d.ts","./src/components/checklist.tsx","./src/components/itinerary.tsx","./src/components/meals.tsx","./src/components/todopanel.tsx","./src/components/transport.tsx","./src/data/itinerary.ts","./src/data/meals.ts","./src/data/packinglist.ts","./src/data/shoppinglist.ts","./src/data/transport.ts"],"version":"6.0.2"}

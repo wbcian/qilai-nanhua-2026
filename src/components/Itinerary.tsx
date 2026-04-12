@@ -1,26 +1,8 @@
-import { useEffect, useRef, useCallback, useState } from 'react'
-import { DAYS, TODOS } from '../data/itinerary'
-
-function loadSet(key: string): Set<string> {
-  try { return new Set(JSON.parse(localStorage.getItem('qilai_' + key) || '[]')) }
-  catch { return new Set() }
-}
-function saveSet(key: string, s: Set<string>) {
-  localStorage.setItem('qilai_' + key, JSON.stringify([...s]))
-}
+import { useEffect, useRef } from 'react'
+import { DAYS } from '../data/itinerary'
 
 export default function Itinerary() {
-  const [todoSet, setTodoSet] = useState(() => loadSet('todo'))
   const cardsRef = useRef<HTMLDivElement>(null)
-
-  const toggleTodo = useCallback((id: string) => {
-    setTodoSet(prev => {
-      const next = new Set(prev)
-      next.has(id) ? next.delete(id) : next.add(id)
-      saveSet('todo', next)
-      return next
-    })
-  }, [])
 
   // Scroll animation for day cards
   useEffect(() => {
@@ -40,34 +22,8 @@ export default function Itinerary() {
     return () => obs.disconnect()
   }, [])
 
-  const tripStart = new Date(2026, 3, 18)
-  const now = new Date()
-  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
-  const showTodos = today < tripStart
-
   return (
     <div ref={cardsRef}>
-      {/* Todos */}
-      {showTodos && (
-        <>
-          <div className="sec-title">🔥 出發前待辦</div>
-          <div className="todo-card">
-            <div className="cl-items">
-              {TODOS.map(t => {
-                const ck = todoSet.has(t.id)
-                return (
-                  <label key={t.id} className={`cl-item${ck ? ' checked' : ''}`} >
-                    <input type="checkbox" checked={ck} onChange={() => toggleTodo(t.id)} tabIndex={-1} />
-                    <span className="cl-label">{t.t}</span>
-                  </label>
-                )
-              })}
-            </div>
-          </div>
-        </>
-      )}
-
-      {/* Day cards */}
       {DAYS.map(d => (
         <div key={d.day} className="day-card">
           <div className={`day-card-accent ${d.type}`} />
