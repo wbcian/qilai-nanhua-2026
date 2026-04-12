@@ -1,4 +1,5 @@
 import { useState, useCallback } from 'react'
+import { loadSet, saveSet } from '../utils/storage'
 
 interface ChecklistItem {
   id: string
@@ -12,14 +13,6 @@ interface ChecklistGroup {
   items: ChecklistItem[]
 }
 
-function loadSet(key: string): Set<string> {
-  try { return new Set(JSON.parse(localStorage.getItem('qilai_' + key) || '[]')) }
-  catch { return new Set() }
-}
-function saveSet(key: string, s: Set<string>) {
-  localStorage.setItem('qilai_' + key, JSON.stringify([...s]))
-}
-
 interface Props {
   data: ChecklistGroup[]
   prefix: string
@@ -29,7 +22,6 @@ interface Props {
 export default function Checklist({ data, prefix, noteBox }: Props) {
   const [checked, setChecked] = useState<Set<string>>(() => {
     const s = loadSet(prefix)
-    // Add pre-checked items
     data.forEach(g => g.items.forEach(it => { if (it.pre) s.add(it.id) }))
     return s
   })
@@ -44,12 +36,10 @@ export default function Checklist({ data, prefix, noteBox }: Props) {
   }, [prefix])
 
   let total = 0, done = 0
-  data.forEach(g => g.items.forEach(() => { total++ }))
-  data.forEach(g => g.items.forEach(it => { if (checked.has(it.id)) done++ }))
+  data.forEach(g => g.items.forEach(it => { total++; if (checked.has(it.id)) done++ }))
 
   return (
     <>
-      {/* Progress */}
       <div className="cl-progress">
         <div className="cl-progress-text">{done} / {total}</div>
         <div className="cl-progress-bar">
@@ -59,7 +49,6 @@ export default function Checklist({ data, prefix, noteBox }: Props) {
 
       {noteBox && <div className="note-box">{noteBox}</div>}
 
-      {/* Groups */}
       {data.map(g => {
         let gc = 0
         g.items.forEach(it => { if (checked.has(it.id)) gc++ })

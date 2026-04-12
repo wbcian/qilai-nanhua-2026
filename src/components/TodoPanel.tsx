@@ -2,15 +2,8 @@ import { useState, useCallback } from 'react'
 import { TODOS } from '../data/itinerary'
 import { GEAR } from '../data/packingList'
 import { SHOPPING } from '../data/shoppingList'
+import { loadSet, saveSet } from '../utils/storage'
 import Checklist from './Checklist'
-
-function loadSet(key: string): Set<string> {
-  try { return new Set(JSON.parse(localStorage.getItem('qilai_' + key) || '[]')) }
-  catch { return new Set() }
-}
-function saveSet(key: string, s: Set<string>) {
-  localStorage.setItem('qilai_' + key, JSON.stringify([...s]))
-}
 
 export default function TodoPanel() {
   const [todoSet, setTodoSet] = useState(() => loadSet('todo'))
@@ -26,7 +19,6 @@ export default function TodoPanel() {
 
   return (
     <>
-      {/* 出發前待辦 */}
       <div className="sec-title">🔥 出發前待辦</div>
       <div className="todo-card">
         <div className="cl-items">
@@ -42,11 +34,9 @@ export default function TodoPanel() {
         </div>
       </div>
 
-      {/* 裝備清單 */}
       <div className="sec-title">🎒 裝備清單</div>
       <Checklist data={GEAR} prefix="gear" />
 
-      {/* 採買清單 */}
       <div className="sec-title">🛒 採買清單</div>
       <Checklist
         data={SHOPPING}

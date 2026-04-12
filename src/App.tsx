@@ -43,13 +43,10 @@ export default function App() {
   const navRef = useRef<HTMLElement>(null)
   const indRef = useRef<HTMLDivElement>(null)
 
-  // Count-up stats
   const s0 = useCountUp(3358, 1200)
   const s1 = useCountUp(3184, 1200)
   const s2 = useCountUp(21, 800)
 
-  // Countdown
-  const tripStart = new Date(2026, 3, 18)
   const now = new Date()
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
   const dates = [new Date(2026, 3, 18), new Date(2026, 3, 19), new Date(2026, 3, 20)]
@@ -57,7 +54,7 @@ export default function App() {
   let countdownText = ''
   let countdownActive = false
   if (today < dates[0]) {
-    const diff = Math.ceil((tripStart.getTime() - today.getTime()) / 86400000)
+    const diff = Math.ceil((dates[0].getTime() - today.getTime()) / 86400000)
     countdownText = `⛰ ${diff} 天後出發`
   } else if (today <= dates[2]) {
     for (let i = 2; i >= 0; i--) {
@@ -67,7 +64,6 @@ export default function App() {
     countdownText = '✅ 旅程已結束'
   }
 
-  // Theme
   const applyTheme = useCallback((name: string) => {
     document.documentElement.setAttribute('data-theme', name === 'light' ? '' : name)
     const mc = document.querySelector('meta[name="theme-color"]')
@@ -83,7 +79,6 @@ export default function App() {
     applyTheme(THEMES[(i + 1) % 3])
   }, [theme, applyTheme])
 
-  // Nav indicator
   const updateIndicator = useCallback(() => {
     const nav = navRef.current
     const ind = indRef.current
@@ -105,14 +100,12 @@ export default function App() {
     return () => window.removeEventListener('resize', updateIndicator)
   }, [updateIndicator])
 
-  // Switch tab
   const switchTab = useCallback((name: Tab) => {
     setActiveTab(name)
     const nav = navRef.current
     if (nav) window.scrollTo({ top: nav.offsetTop, behavior: 'smooth' })
   }, [])
 
-  // Back to top
   useEffect(() => {
     let ticking = false
     const onScroll = () => {
@@ -130,13 +123,11 @@ export default function App() {
 
   return (
     <>
-      {/* Theme toggle */}
-      <button className="theme-btn" onClick={cycleTheme} aria-label="切換主題">
+<button className="theme-btn" onClick={cycleTheme} aria-label="切換主題">
         {THEME_ICONS[theme]}
       </button>
 
-      {/* Hero */}
-      <section className="hero">
+<section className="hero">
         <h1 className="hero-title">奇萊南華</h1>
         <p className="hero-sub">2026.04.18 – 04.20 ｜ 3 天 2 夜</p>
         <div className="stats-row">
@@ -158,8 +149,7 @@ export default function App() {
         <div className={`hero-countdown${countdownActive ? ' active' : ''}`}>{countdownText}</div>
       </section>
 
-      {/* Sticky Nav */}
-      <nav className="nav-wrap" ref={navRef}>
+<nav className="nav-wrap" ref={navRef}>
         {TAB_LIST.map(tab => (
           <button
             key={tab.key}
@@ -172,8 +162,7 @@ export default function App() {
         <div className="nav-ind" ref={indRef} />
       </nav>
 
-      {/* Tab Panels */}
-      <main>
+<main>
         <section className={`tab-panel${activeTab === 'itinerary' ? ' active' : ''}`}>
           <Itinerary />
         </section>
@@ -188,8 +177,7 @@ export default function App() {
         </section>
       </main>
 
-      {/* Back to top */}
-      <button
+<button
         className={`btt${showBtt ? ' show' : ''}`}
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         aria-label="回到頂部"

@@ -4,7 +4,6 @@ import { DAYS } from '../data/itinerary'
 export default function Itinerary() {
   const cardsRef = useRef<HTMLDivElement>(null)
 
-  // Scroll animation for day cards
   useEffect(() => {
     const el = cardsRef.current
     if (!el) return
