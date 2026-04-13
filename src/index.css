@@ -299,6 +299,38 @@ h1,h2,h3{font-family:var(--serif);font-weight:900}
   border-bottom:1px solid var(--surface-card-b);
   display:flex;align-items:center;gap:8px;
 }
+.todo-add-form{
+  display:flex;align-items:center;gap:8px;
+  padding:10px 16px;border-bottom:1px solid var(--surface-card-b);
+}
+.todo-add-input{
+  flex:1;min-width:0;height:var(--touch-min);padding:0 12px;
+  border:1px solid var(--surface-card-b);border-radius:var(--radius-sm);
+  background:var(--surface);color:var(--on-surface);
+  font-family:var(--sans);font-size:14px;outline:none;transition:border-color 0.2s;
+}
+.todo-add-input:focus{border-color:var(--primary)}
+.todo-add-input::placeholder{color:var(--on-surface-light)}
+.todo-add-btn{
+  flex-shrink:0;width:var(--touch-min);height:var(--touch-min);
+  border:none;border-radius:var(--radius-sm);
+  background:var(--primary);color:var(--on-primary);
+  font-size:18px;font-weight:700;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;transition:opacity 0.2s;
+}
+.todo-add-btn:disabled{opacity:0.35;cursor:default}
+.todo-add-btn:not(:disabled):active{opacity:0.8}
+.todo-del-btn{
+  flex-shrink:0;width:28px;height:28px;margin-left:auto;
+  border:none;border-radius:50%;background:transparent;color:var(--on-surface-light);
+  font-size:13px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;transition:background 0.15s,color 0.15s;
+}
+.todo-del-btn:hover{background:var(--warning-dim);color:var(--warning)}
+.todo-del-btn:active{background:var(--warning-dim);color:var(--warning)}
+.todo-empty{
+  padding:24px 16px;text-align:center;font-size:13px;color:var(--on-surface-light);
+}
 
 /* ── Transport Cards ── */
 .tr-card{

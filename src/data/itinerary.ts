@@ -74,7 +74,7 @@ export interface TodoItem {
   t: string
 }
 
-export const TODOS: TodoItem[] = [
+export const DEFAULT_TODOS: TodoItem[] = [
   { id: 't02', t: '採買食物與消耗品' },
   { id: 't03', t: '下載 GPX 軌跡到手機' },
   { id: 't04', t: '確認行動電源充滿電' },
