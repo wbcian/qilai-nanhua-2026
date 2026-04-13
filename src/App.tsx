@@ -45,7 +45,7 @@ export default function App() {
 
   const s0 = useCountUp(3358, 1200)
   const s1 = useCountUp(3184, 1200)
-  const s2 = useCountUp(21, 800)
+  const s2 = useCountUp(37, 800)
 
   const now = new Date()
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
